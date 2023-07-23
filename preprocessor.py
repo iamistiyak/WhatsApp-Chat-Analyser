@@ -2,14 +2,18 @@ import re
 import pandas as pd
 
 def preprocess(data):
-    pattern = '\d{1,2}/\d{1,2}/\d{2,4},\s\d{1,2}:\d{2}\s-\s'
+    # pattern = '\d{1,2}/\d{1,2}/\d{2,4},\s\d{1,2}:\d{2}\s-\s'
+
+    pattern = '\d{1,2}/\d{1,2}/\d{2,4},\s\d{1,2}:\d{2}\s(?:am|pm)\s-\s'
 
     messages = re.split(pattern, data)[1:]
     dates = re.findall(pattern, data)
 
     df = pd.DataFrame({'user_message': messages, 'message_date': dates})
     # convert message_date type
-    df['message_date'] = pd.to_datetime(df['message_date'], format='%d/%m/%y, %H:%M - ')
+
+    # df['message_date'] = pd.to_datetime(df['message_date'], format='%d/%m/%y, %H:%M - ') #24-hours format
+    df['message_date'] = pd.to_datetime(df['message_date'], format='%d/%m/%y, %H:%M %p - ')
 
     df.rename(columns={'message_date': 'date'}, inplace=True)
 
@@ -44,8 +48,8 @@ def preprocess(data):
     #Heat Map
     period = []
     for hour in df[['day_name', 'hour']]['hour']:
-        if hour == 23:
-            period.append(str(hour) + "-" + str('00'))
+        if hour == 11:    # hour == 11 and str('00') for 24-hour
+            period.append(str(hour) + "-" + str('12'))
         elif hour == 0:
             period.append(str('00') + "-" + str(hour + 1))
         else:

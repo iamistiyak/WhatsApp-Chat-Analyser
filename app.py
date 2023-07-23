@@ -92,7 +92,7 @@ if uploaded_file is not None:
                st.text("")
 
        #Word Cloud
-       st.title(":blue[Word Cloud]")
+       st.title(":blue[Maximum Used Words]")
        df_wc = helper.create_wordcloud(selected_user, df)
        fig, ax = plt.subplots()
        ax.imshow(df_wc)
@@ -111,7 +111,7 @@ if uploaded_file is not None:
 
        plt.xticks(rotation = 'vertical')
 
-       st.title(":blue[Most Common Words]")
+       st.title(":blue[Most Commonly Used Words]")
        ax.set_xlabel('Common Word')
        ax.set_ylabel('Count')
        st.pyplot(fig)
@@ -122,7 +122,7 @@ if uploaded_file is not None:
 
        # Emoji Analysis
        emoji_df = helper.emoji_helper(selected_user, df)
-       st.title(":blue[Emoji Analysis]")
+       st.title(":blue[Used Emojis ]")
 
        col1, col2 = st.columns(2)
 
@@ -221,7 +221,7 @@ if uploaded_file is not None:
            st.text("")
 
         #Heatmap
-       st.title("Most Talkative Time period in Week")
+       st.title("Most Talkative Time Period In a Week")
        user_heatmap = helper.activity_heatmap(selected_user, df)
 
        fig, ax = plt.subplots()
