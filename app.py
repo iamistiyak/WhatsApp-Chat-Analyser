@@ -5,7 +5,9 @@ import  seaborn as sns
 
 st. set_page_config(layout="wide")
 st.sidebar.title(":green[WhatsApp Chat Analyser]")
-
+st.sidebar.header("Created by :blue[Istiyak Shaikh]")
+st.sidebar.text("")
+st.sidebar.text("")
 
 uploaded_file = st.sidebar.file_uploader("Choose a chat file")
 if uploaded_file is not None:
